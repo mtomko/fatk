@@ -3,6 +3,7 @@ FASTA toolkit
 
 ## Usage
 List sequences in a FASTA file:
+
     % ./fatk list foo.fasta
     seq1
     seq2
