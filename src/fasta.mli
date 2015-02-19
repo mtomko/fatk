@@ -3,7 +3,7 @@ open Core_kernel.Std
 (** Represents an entry in a FASTA file *)
 type item = {
   name : string;
-  sequence : Dna.Seq.t
+  sequence : string;
 }
 
 (** Creates a FASTA item stream from the input channel *)
