@@ -1,4 +1,5 @@
 open Core_kernel.Std
+open Extensions
 
 (** Represents an entry in a FASTA file *)
 type item = {
