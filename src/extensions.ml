@@ -23,3 +23,8 @@ module Stream = struct
     loop []
 
 end
+
+(** Might not be the best place for this to go, but here it is *)
+let in_channel_of file_name =
+  if file_name = "-" then stdin
+  else open_in file_name
