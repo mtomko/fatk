@@ -9,13 +9,14 @@ let print_seq file_name seq_name print_header =
      let handler =
        match print_header with
        | true -> (fun (fa : Fasta.item) ->
+                  print_char '>';
                   print_string fa.name;
                   print_newline ();
                   print_string fa.sequence;
-                  print_newline)
+                  print_newline ())
        | false -> (fun (fa : Fasta.item) ->
                    print_string fa.sequence;
-                   print_newline) in
+                   print_newline ()) in
      Stream.iter handler matching_seqs) file_name
 
 let cmd =
@@ -24,7 +25,7 @@ let cmd =
     Command.Spec.(
     empty
     +> anon ("file" %: file)
-    +> flag "-n" string ~doc: " sequence name"
+    +> flag "-n" (required string) ~doc: " sequence name"
     +> flag "-h" no_arg ~doc: " print sequence headers"
   )
   (fun file_name seq_name print_header () -> print_seq file_name seq_name print_header)
