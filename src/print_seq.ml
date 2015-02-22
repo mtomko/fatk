@@ -10,10 +10,8 @@ let print_seq file_name seq_name print_header =
        match print_header with
        | true -> (fun (fa : Fasta.item) ->
                   print_char '>';
-                  print_string fa.name;
-                  print_newline ();
-                  print_string fa.sequence;
-                  print_newline ())
+                  print_endline fa.name;
+                  print_endline fa.sequence)
        | false -> (fun (fa : Fasta.item) ->
                    print_string fa.sequence;
                    print_newline ()) in
@@ -24,8 +22,8 @@ let cmd =
     ~summary:"Print selected sequence in the provided FASTA file"
     Command.Spec.(
     empty
-    +> anon ("file" %: file)
-    +> flag "-n" (required string) ~doc: " sequence name"
+    +> anon ("file" %: string)
+    +> anon ("seq_name" %: string)
     +> flag "-h" no_arg ~doc: " print sequence headers"
   )
   (fun file_name seq_name print_header () -> print_seq file_name seq_name print_header)
