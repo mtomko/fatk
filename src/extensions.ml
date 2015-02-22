@@ -9,6 +9,15 @@ module Stream = struct
       stream;
     !result
 
+  (* borrowed shamelessly from http://ocaml.org/learn/tutorials/streams.html *)
+  let filter ~pred ~stream =
+    let rec next i =
+      try
+        let value = Stream.next stream in
+        if pred value then Some value else next i
+      with Stream.Failure -> None in
+    Stream.from next
+
   (* takes from the stream while the predicate is true, leaving the first element
      which does not satisfy the predicate at the head of the stream *)
   let take_while ~pred ~stream =
@@ -23,8 +32,3 @@ module Stream = struct
     loop []
 
 end
-
-(** Might not be the best place for this to go, but here it is *)
-let in_channel_of file_name =
-  if file_name = "-" then stdin
-  else open_in file_name
