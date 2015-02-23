@@ -2,9 +2,9 @@ open Core.Std
 open Extensions
 
 let list_seqs file_name print_lengths =
-  let item_stream : Fasta.item Stream.t = Fatk.item_stream_of file_name in
+  let item_stream : Fasta.Item.t Stream.t = Fatk.item_stream_of file_name in
   Fatk.with_each_item
-    (fun (fa : Fasta.item) ->
+    (fun (fa : Fasta.Item.t) ->
      let () = print_string fa.name in
      if print_lengths then
        let () = print_string "\t" in

@@ -21,7 +21,7 @@ let with_items fn file_name =
     close_in_noerr channel;
     raise e
 
-let with_each_item fn file_name =
+let with_each_item f file_name =
   let stream_handler stream =
-    Stream.iter (fun (i : Fasta.item) -> fn i) stream in
+    Stream.iter (fun i -> f i) stream in
   with_items stream_handler file_name
