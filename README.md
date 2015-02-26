@@ -2,14 +2,19 @@
 FASTA toolkit
 
 ## Usage
-List sequences in a FASTA file:
 
-    % ./fatk list foo.fasta
-    seq1
-    seq2
-    %
+    Process FASTA files
+    
+      fatk SUBCOMMAND
+    
+    === subcommands ===
+    
+      list     List the sequences in the provided FASTA file
+      print    Print selected sequence in the provided FASTA file
+      sub      Print a substring in the provided FASTA file
+      version  print version information
+      help     explain a given subcommand (perhaps recursively)
 
-Planned:
- * Extract named record
- * Extract substring of named record
+
+
  
