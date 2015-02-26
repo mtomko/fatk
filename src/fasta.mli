@@ -1,11 +1,13 @@
 open Core_kernel.Std
 open Extensions
 
-(** Represents an entry in a FASTA file *)
-type item = {
-  name : string;
-  sequence : string;
-}
+(** Represents a single entry in a FASTA file *)       
+module Item : sig
+  type t = { name : bytes; sequence : bytes; }
+end
 
 (** Creates a FASTA item stream from the input channel *)
-val fasta_stream_of_channel : in_channel -> item Stream.t
+val fasta_stream_of_channel : in_channel -> Item.t Stream.t
+
+(** Creates a string representation of the FASTA item *)
+val to_string : width:int -> Item.t -> string
