@@ -5,7 +5,7 @@ let print_seq file_name seq_name print_header =
   Fatk.with_items
     (fun stream ->
      let matching_seqs =
-       Stream.filter (fun (fa: Fasta.Item.t) -> fa.name = seq_name) stream in
+       Stream.filter ~pred:(fun (fa: Fasta.Item.t) -> fa.name = seq_name) ~stream in
      let handler =
        match print_header with
        | true -> (fun (fa : Fasta.Item.t) ->
@@ -27,5 +27,3 @@ let cmd =
     +> flag "-h" no_arg ~doc: " print sequence headers"
   )
   (fun file_name seq_name print_header () -> print_seq file_name seq_name print_header)
-                                    
-  
