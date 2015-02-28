@@ -1,16 +1,17 @@
 PRG=fatk
 
+PACKAGES=-pkg re2 #-pkg bolt
+
 all: $(PRG)
 
 .PHONY: $(PRG)
 $(PRG): main.native
-#	if [ ! -e bin ]; then mkdir bin; fi
-#	make fatk.native
-#	cp `readlink fatk.native` bin/$@
-#	rm fatk.native
+	if [ ! -e bin ]; then mkdir bin; fi
+	make main.native
+	cp src/_build/main.native bin/$@
 
 %.native %.byte:
-	(cd src/; corebuild -pkg re2 -pkg bolt $@)
+	(cd src/; corebuild ${PACKAGES} $@)
 
 .PHONY: semi-clean
 semi-clean:

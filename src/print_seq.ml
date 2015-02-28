@@ -9,9 +9,7 @@ let print_seq file_name seq_name print_header =
      let handler =
        match print_header with
        | true -> (fun (fa : Fasta.Item.t) ->
-                  print_char '>';
-                  print_endline fa.name;
-                  print_endline fa.sequence)
+                  print_endline (Fasta.to_string fa))
        | false -> (fun (fa : Fasta.Item.t) ->
                    print_string fa.sequence;
                    print_newline ()) in

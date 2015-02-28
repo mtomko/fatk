@@ -10,4 +10,4 @@ end
 val fasta_stream_of_channel : in_channel -> Item.t Stream.t
 
 (** Creates a string representation of the FASTA item *)
-val to_string : width:int -> Item.t -> string
+val to_string : ?width : int -> Item.t -> string

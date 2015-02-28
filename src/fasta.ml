@@ -28,7 +28,7 @@ let fasta_stream_of_channel channel =
       let name = extract_re_exn sequence_name_re header in
       if Regex.matches sequence_name_re header then
         let lines = Stream.take_while ~pred:not_header ~stream:line_stream in
-        let data = String.concat ?sep:None lines in
+        let data = String.concat lines in
         Some { Item.name ; sequence = data }
       else None
     with Stream.Failure -> None in
@@ -47,7 +47,8 @@ let string_split_n s n =
   let ls : char list list = list_partition_n l n in
   List.map ~f:(fun l -> String.of_char_list l) ls
 
-let to_string ~width t =
+let to_string ?width t =
+  let width = match width with None -> 60 | Some w -> w in
   let header = String.concat [">"; t.Item.name] in
   let sequence =  t.Item.sequence in
   let sequence_blocks = string_split_n sequence width in

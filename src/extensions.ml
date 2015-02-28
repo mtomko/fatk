@@ -31,4 +31,13 @@ module Stream = struct
          else List.rev buf in
     loop []
 
+  let zip_with_index stream =
+    let rec next i =
+      try
+        let value = Stream.next stream in
+        Some (value, i)
+      with Stream.Failure -> None in
+    Stream.from next
+
 end
+

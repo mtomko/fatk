@@ -11,3 +11,6 @@ src/_build/
 .paths
 .project
 .settings
+*.native
+bin
+*.byte
