@@ -8,4 +8,6 @@ val with_items : string -> f:(Fasta.Item.t -> unit) -> unit
     provided input file *)
 val with_items_indexed : string -> f:(Fasta.Item.t * int -> unit) -> unit
 
+(** Applies the function f to a stream of items matching the given predicate from the provided
+    input file *)
 val with_matching_items : string -> p:(Fasta.Item.t * int -> bool) -> f:(Fasta.Item.t * int -> unit) -> unit
