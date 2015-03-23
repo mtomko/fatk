@@ -1,37 +1,23 @@
 open Core.Std
 open Extensions
 
-(** get a channel from the file name, using stdin if the file is '-' *)
-let in_channel_of file_name =
-  if file_name = "-" then stdin
-  else open_in file_name
-       
-(** Creates a stream of FASTA records over the file *)               
-let item_stream_of file_name =
-  let file_in = in_channel_of file_name in
-  Fasta.fasta_stream_of_channel file_in
+let with_items file_name ~f =
+  let stream_fn inc =
+    let is = Fasta.fasta_stream_of_channel inc
+    in Stream.iter f is
+  in In_channel.with_file ~f:stream_fn file_name
 
-(** Applies a function f to the provided input channel, closing it when done,
-    unless the channel is stdin *)
-let with_channel mk_chan ~f =
-  let inc = mk_chan () in
-  protect ~f:(fun () -> f inc)
-          ~finally:(fun () ->
-                    if not (phys_equal inc stdin) then In_channel.close inc)
-                 
-let with_items f file_name chan_to_stream =
-  with_channel
-    (fun _ -> in_channel_of file_name)
-    ~f:(fun inc ->
-        let stream = chan_to_stream inc in f stream)
-          
-(** Processes a stream of Fasta.Item.t extracted from the file *)
-let with_items fn file_name =
-  with_items fn file_name Fasta.fasta_stream_of_channel
+let with_items_indexed file_name ~f =
+  let stream_fn inc =
+    let fasta_stream = Fasta.fasta_stream_of_channel inc in
+    let indexed_stream = Stream.zip_with_index fasta_stream in
+    Stream.iter f indexed_stream
+  in In_channel.with_file ~f:stream_fn file_name
 
-(** Applies the function f to each Fasta.Item.t found in the file *)
-let with_each_item f file_name =
-  let stream_handler stream =
-    Stream.iter (fun x -> f x) stream in
-  with_items stream_handler file_name
-
+let with_matching_items file_name ~p ~f =
+  let stream_fn inc =
+    let fasta_stream = Fasta.fasta_stream_of_channel inc in
+    let indexed_stream = Stream.zip_with_index fasta_stream in
+    let matching_stream = Stream.filter ~pred:p ~stream:indexed_stream in
+    Stream.iter f indexed_stream
+  in In_channel.with_file ~f:stream_fn file_name
