@@ -1,18 +1,8 @@
 open Core.Std
 open Extensions
 
-let match_name name elt =
-  let (item : Fasta.Item.t) = (fst elt) in item.name = name
-
-let match_num num elt =
-  let idx = (snd elt) in idx = num
-
 let print_seq file_name seq_name seq_number print_header =
-  let p =
-    match seq_name, seq_number with
-    | Some name, _ -> (match_name name)
-    | None, Some num -> (match_num num)
-    | _ -> failwith "Either sequence name or sequence number must be specified" in
+  let p = Fatk.matcher seq_name seq_number in
   let f =
     match print_header with
     | true -> (fun elt -> print_endline (Fasta.to_string (fst elt)))
