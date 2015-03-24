@@ -8,6 +8,7 @@
 *.cmxs
 *.cmxa
 src/_build/
+_build/
 .paths
 .project
 .settings
