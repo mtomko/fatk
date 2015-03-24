@@ -32,7 +32,7 @@ module Stream = struct
     loop []
 
   let zip_with_index stream ?(base = 0) =
-    let rec next i =
+    let next i =
       try
         let value = Stream.next stream in
         Some (value, base + i)

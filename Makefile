@@ -1,8 +1,14 @@
 PRG=fatk
 
-PACKAGES=-pkg re2 #-pkg bolt
+PACKAGES=-pkg re2 # bolt
+TEST_PACKAGES=-pkg ounit ${PACKAGES}
 
-all: $(PRG)
+all: $(PRG) tests
+
+.PHONY: tests
+tests: src/*.ml src/*.mli test/*.ml
+	corebuild ${TEST_PACKAGES} -Is src,test test/test.native
+	@./test.native
 
 .PHONY: $(PRG)
 $(PRG): main.native
