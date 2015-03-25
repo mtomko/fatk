@@ -15,7 +15,14 @@ let filter_test _ =
   let actual_list = Stream.npeek 3 actual in
   assert_equal expected actual_list
 
-let zip_with_index_test _ =
+let zip_with_index_test0 _ =
+  let expected = [("foo", 0); ("bar", 1); ("baz", 2); ("quux", 3)] in
+  let input = Stream.of_list alist in
+  let actual = Stream.zip_with_index input (* use the default base 0 *) in
+  let actual_list = Stream.npeek 5 actual in
+  assert_equal expected actual_list
+
+let zip_with_index_test1 _ =
   let expected = [("foo", 1); ("bar", 2); ("baz", 3); ("quux", 4)] in
   let input = Stream.of_list alist in
   let actual = Stream.zip_with_index input ~base:1 in
@@ -23,6 +30,7 @@ let zip_with_index_test _ =
   assert_equal expected actual_list
 
 (* Suite *)
-let suite = "suite">:::
+let suite = "extensions_test">:::
   ["filter_test">:: filter_test;
-   "zip_with_index_test">:: zip_with_index_test]
+   "zip_with_index_test0">:: zip_with_index_test0;
+   "zip_with_index_test1">:: zip_with_index_test1]

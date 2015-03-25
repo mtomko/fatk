@@ -31,7 +31,7 @@ module Stream = struct
          else List.rev buf in
     loop []
 
-  let zip_with_index stream ?(base = 0) =
+  let zip_with_index ?(base = 0) stream =
     let next i =
       try
         let value = Stream.next stream in

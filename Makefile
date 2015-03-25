@@ -14,10 +14,10 @@ tests: src/*.ml src/*.mli test/*.ml
 $(PRG): main.native
 	if [ ! -e bin ]; then mkdir bin; fi
 	make main.native
-	cp src/_build/main.native bin/$@
+	cp _build/src/main.native bin/$@
 
 %.native %.byte:
-	(cd src/; corebuild ${PACKAGES} $@)
+	corebuild ${PACKAGES} -Is src $@
 
 .PHONY: semi-clean
 semi-clean:
