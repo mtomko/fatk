@@ -6,8 +6,8 @@ TEST_PACKAGES=-pkg ounit ${PACKAGES}
 all: $(PRG) tests
 
 .PHONY: tests
-tests: src/*.ml src/*.mli test/*.ml
-	corebuild ${TEST_PACKAGES} -Is src,test test/test.native
+tests: $(PRG) test/*.ml
+	corebuild ${TEST_PACKAGES} -Is src,test test.native
 	@./test.native
 
 .PHONY: $(PRG)
