@@ -1,6 +1,6 @@
 PRG=fatk
 
-PACKAGES=-pkg re2 # bolt
+PACKAGES=-pkg re2# bolt
 TEST_PACKAGES=-pkg ounit ${PACKAGES}
 
 all: $(PRG) tests
@@ -21,11 +21,11 @@ $(PRG): main.native
 
 .PHONY: semi-clean
 semi-clean:
-	ocamlbuild -clean
+	corebuild -clean
 
 .PHONY: clean
 clean: semi-clean
-	rm -f bin/fastcue
+	rm -f bin/fatk
 
 .PHONY: all-clean
 all-clean: clean
