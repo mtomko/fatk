@@ -41,7 +41,7 @@ let list_partition_n l n =
     | _ -> let (l1, l2) = List.split_n ls n in
            loop l2 (l1 :: acc) in
   loop l []
-              
+
 let string_split_n s n =
   let l : char list = String.to_list s in
   let ls : char list list = list_partition_n l n in
@@ -54,4 +54,3 @@ let to_string ?width t =
   let sequence_blocks = string_split_n sequence width in
   let sequence_blocked = String.concat ~sep:"\n" sequence_blocks in
   String.concat ~sep:"\n" [header; sequence_blocked]
-

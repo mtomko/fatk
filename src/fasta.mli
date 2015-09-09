@@ -1,9 +1,9 @@
 open Core_kernel.Std
 open Extensions
 
-(** Represents a single entry in a FASTA file *)       
+(** Represents a single entry in a FASTA file *)
 module Item : sig
-  type t = { name : bytes; sequence : bytes; }
+  type t = { name : string; sequence : string; }
 end
 
 (** Creates a FASTA item stream from the input channel *)
