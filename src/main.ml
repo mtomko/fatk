@@ -8,4 +8,4 @@ open Extensions
 let command = Command.group ~summary:"Process FASTA files"
                             [ "list", List_seqs.cmd; "print", Print_seq.cmd; "sub", Sub_seq.cmd]
 
-let () = Command.run command                            
+let () = Command.run ~version:"0.5.0" command                            
