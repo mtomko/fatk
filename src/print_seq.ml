@@ -8,9 +8,9 @@ let print_seq file_name seq_name seq_number print_header =
     | true -> (fun elt -> print_endline (Fasta.to_string (fst elt)))
     | false -> (fun elt ->
                   let fa = fst elt in
-                    print_string fa.sequence;
+                    print_string (Fasta.sequence fa);
                     print_newline ()) in
-  Fatk.with_matching_items file_name ~p ~f
+  Fatk.with_matching_items file_name
 
 let cmd =
   Command.basic

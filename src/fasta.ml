@@ -54,3 +54,5 @@ let to_string ?width t =
   let sequence_blocks = string_split_n sequence width in
   let sequence_blocked = String.concat ~sep:"\n" sequence_blocks in
   String.concat ~sep:"\n" [header; sequence_blocked]
+
+let get_sequence t = t.Item.sequence
